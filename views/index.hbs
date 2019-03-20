@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Search</title>
+    </head>
+    <body>
+        <input id="search" type="text" name="search" placeholder="search">
+        <button id="sbut">Search</button>
+        {{#each arr}}
+            <p>{{this}}</p>
+        {{/each}}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            document.getElementById('sbut').addEventListener('click',function(){
+                var str=jQuery('[name=search]').val();
+                str=str.toLowerCase();
+                if(str.indexOf(' ')>=0)
+                {
+                    var firstword="";
+                    for(var i=0;i<str.length;i++)
+                    {
+                        if(str[i]===' ')
+                        break;
+                        firstword+=str[i];
+                    }
+                }
+                else
+                var firstword=str;
+                if(firstword==='how' || firstword==='whose' || firstword==='who' || firstword==='which' || firstword==='why' || firstword==='when' || firstword==='where' || firstword==='what')
+                {
+                    $.post('/',{text1: str,id1: 'ques'},function(data){
+                        if(data==='abc'){
+                            console.log('aaya');
+                             location.reload();
+                            /*$.get('/',{},function(data){
+
+                            });*/
+                        }
+                    });   
+                }
+                else
+                {
+                    $.post('/',{text1: str,id1: 'nques'},function(data){
+                        if(data==='abc'){
+                            console.log('aaya');
+                            location.reload();
+                            /*$.get('/',{},function(data){
+
+                            });*/
+                        }
+                    }); 
+                }
+            });
+            
+        </script>
+    </body>
+</html>
